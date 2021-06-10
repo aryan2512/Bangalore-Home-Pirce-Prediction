@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+<head>
+    <title>Banglore Home Price Prediction</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{url_for('static',filename='app.css')}}">
+</head>
+<body>
+<div class="img"></div>
+<form class="form" action = "/" method="POST">
+	<h2>Area (Square Feet)</h2>
+    <input class="area"  type="text" id="uiSqft" class="floatLabel" name="Squareft" value="{{param['total_sqft']}}">
+	<h2>BHK</h2>
+	<div class="switch-field">
+		<!-- --------------------------------------------------------------------- -->
+     {% for i in range(1,6) %}
+
+          {% if param['bhk']==i %}
+            <input type="radio" id="radio-bhk-{{i}}" name="uiBHK" value="{{i}}" checked />
+		    <label for="radio-bhk-{{i}}">{{i}}</label>
+          {% else %}
+            <input type="radio" id="radio-bhk-{{i}}" name="uiBHK" value="{{i}}" />
+		    <label for="radio-bhk-{{i}}">{{i}}</label>
+		  {% endif %}
+		
+	{% endfor %}
+
+   </div>
+	  <!-- --------------------------------------------------------------- -->
+	    <h2>Bath</h2>
+	    <div class="switch-field">		
+    {% for i in range(1,6) %}
+
+          {% if param['bath']==i %}
+            <input type="radio" id="radio-bath-{{i}}" name="uiBathrooms" value="{{i}}" checked/>
+		    <label for="radio-bath-{{i}}">{{i}}</label>
+          {% else %}
+            <input type="radio" id="radio-bath-{{i}}" name="uiBathrooms" value="{{i}}" />
+		    <label for="radio-bath-{{i}}">{{i}}</label>
+          {% endif %}
+		
+	{% endfor %}
+	<!-- ---------------------------------------------------------------------- -->
+		</div>
+		<h2>Location</h2>
+	<div>
+  <select class="location" name="uiLocations" id="uiLocations">
+    <option value="{{param['location']}}"  selected="selected">{{param['location']}}</option>
+  {% for i in locations %}
+      		<option>{{i}}</option>
+   {% endfor %}
+
+  </select>
+
+</div>
+	<button class="submit"  type="submit">Estimate Price</button>
+	<div id="uiEstimatedPrice" class="result">	<h2>{{param['price']}}</h2> </div>
+</form>
+</body>
+</html>
